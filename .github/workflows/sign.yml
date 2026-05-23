@@ -6,16 +6,19 @@ on:
 jobs:
   sign:
     runs-on: macos-latest
+    timeout-minutes: 5
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Sign Shortcut
+        timeout-minutes: 2
         run: |
           shortcuts sign \
             --mode anyone \
             --input BrickUp.shortcut \
             --output BrickUp_SIGNED.shortcut
+        continue-on-error: false
 
       - name: Upload signed shortcut
         uses: actions/upload-artifact@v4
